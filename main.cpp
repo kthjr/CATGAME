@@ -53,7 +53,33 @@ int main()
 
 	std::list<Push::Bullet*> bullets;//пули(капли)
 	std::list<Push::Bullet*>::iterator bul;
-//
+	
+    //по¤вление врагов на карте
+	for (int i = 0; i < HEIGHT_MAP; i++) {
+		for (int j = 0; j < WIDTH_MAP; j++) {
+
+			if (TileMap[i][j] == 'L') {
+
+				enemy.push_back(new Dog(j, i));
+				
+
+			}
+
+			if (TileMap[i][j] == 'S') {
+
+				enemy.push_back(new Dogs(j, i));
+
+			}
+
+			if (TileMap[i][j] == 'P') {
+
+				pus.push_back(new Pushka(j, i));
+
+			}
+
+
+		}
+	}
 
 	Font font;
 	font.loadFromFile("Ben_Krush.ttf");
