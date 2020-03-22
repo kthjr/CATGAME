@@ -55,5 +55,33 @@ void Push::Bullet::drawing() {
 
 	window.draw(sprite);
 }
+////Пропадает при 0 на карте (заборе)////
+
+void Push::Bullet::WithMap() {
+
+	for (int i = (bullet_rect.top) / 32; i < (bullet_rect.top + 32) / 32; i++)
+		for (int j = (bullet_rect.left) / 32; j < (bullet_rect.left + 32) / 32; j++)
+		{
+			if (TileMap[i][j] == '0')
+			{
+				life = false;
+			}
+		}
+
+}
+
+Push::Bullet::~Bullet() {
+
+}
+
+//// Пропадает при взаимодейстивии с игроком///
+
+void Push::Bullet::WithPlayer(Player &p) {
+	if ((((p.GetPlayerCoordinateX()) >= ((bullet_rect.left))) && ((p.GetPlayerCoordinateX()) <= ((bullet_rect.left) + 10))) && (((p.GetPlayerCoordinateY()) >= (bullet_rect.top)) && ((p.GetPlayerCoordinateY()) <= (bullet_rect.top) + 32))) {
+		life = false;
+		p.bDamage();
+		return;
+	}
+}
 
 
