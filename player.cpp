@@ -73,6 +73,58 @@ void Player::update(float time)
 	hpbar.setSize(Vector2f((float)hp * 1.f, 10.f));
 }
 
+                               ///сопюбкемхе цепнел///
+void Player::draw_p() {
+	time = clock.getElapsedTime().asMicroseconds();
+	clock.restart();
+
+	time = time / 650;
+
+
+	float coordinatePlayerX, coordinatePlayerY = 0;
+	coordinatePlayerX = GetPlayerCoordinateX();
+	coordinatePlayerY = GetPlayerCoordinateY();
+
+
+
+	if ((Keyboard::isKeyPressed(Keyboard::Left) || (Keyboard::isKeyPressed(Keyboard::A)))) {
+		dir = 1; speed = 0.1;
+		CurrentFrame += 0.005*time;
+		if (CurrentFrame > 3) CurrentFrame -= 3;
+		sprite.setTextureRect(IntRect(32 * int(CurrentFrame), 32, 32, 32));
+
+	}
+
+
+	if ((Keyboard::isKeyPressed(Keyboard::Right) || (Keyboard::isKeyPressed(Keyboard::D)))) {
+		dir = 0; speed = 0.1;
+		CurrentFrame += 0.005*time;
+		if (CurrentFrame > 3) CurrentFrame -= 3;
+		sprite.setTextureRect(IntRect(32 * int(CurrentFrame), 65, 32, 32));
+
+	}
+
+	if ((Keyboard::isKeyPressed(Keyboard::Up) || (Keyboard::isKeyPressed(Keyboard::W)))) {
+		dir = 3; speed = 0.1;
+		CurrentFrame += 0.005*time;
+		if (CurrentFrame > 3) CurrentFrame -= 3;
+		sprite.setTextureRect(IntRect(32 * int(CurrentFrame), 96, 32, 32));
+
+	}
+
+	if ((Keyboard::isKeyPressed(Keyboard::Down) || (Keyboard::isKeyPressed(Keyboard::S)))) {
+		dir = 2; speed = 0.1;
+		CurrentFrame += 0.005*time;
+		if (CurrentFrame > 3) CurrentFrame -= 3;
+		sprite.setTextureRect(IntRect(32 * int(CurrentFrame), 0, 32, 32));
+
+
+	}
+	update(time);
+
+	window.draw(sprite);
+
+}
 
 
                                              ///бгюхлндеиярбхе я йюпрни///
