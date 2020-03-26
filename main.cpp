@@ -85,15 +85,83 @@ int main()
 	font.loadFromFile("Ben_Krush.ttf");
 	Text text("", font, 20);
 	text.setStyle(sf::Text::Bold);
-//
 
-	text.setString("«доровье:");
-	text.setPosition(400, 0);
-	window.draw(text);
-	window.draw(z.hpbar);
-	window.display();
+	while (window.isOpen())
+	{
+		if (z.win >= 1)
+		{
 	
-	
+			window.close();
+			RenderWindow window(sf::VideoMode(900, 590), "CATGAME"); 
+			winner(window); while (!Mouse::isButtonPressed(Mouse::Right));
+		}
+		if (z.hp <= 0)
+		{
+		
+			window.close();
+			RenderWindow window(sf::VideoMode(900, 900), "CATGAME");
+			lose(window); while (!Mouse::isButtonPressed(Mouse::Right));
+		}
+
+
+
+
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+
+		}
+		window.clear(Color(33, 30, 30));
+
+
+		m.drawing();
+		z.draw_p();
+
+		for (ee = enemy.begin(); ee != enemy.end(); ee++) {
+			(*ee)->drawing(z.GetPlayerCoordinateX(), z.GetPlayerCoordinateY(), z);
+		}
+
+		for (pp = pus.begin(); pp != pus.end(); pp++) {
+			(*pp)->drawing();
+
+
+			if ((*pp)->shoot > 300) {
+				(*pp)->shoot = 0;
+				FloatRect polozh = (*pp)->polozenie();
+				float uskor = (*pp)->uskorenie();
+				bullets.push_back(new Push::Bullet(polozh, uskor));
+			}
+			(*pp)->shoot++;
+		}
+
+		for (bul = bullets.begin(); bul != bullets.end(); bul++) {
+			if ((*bul)->life) {
+
+				(*bul)->WithPlayer(z);
+				(*bul)->drawing();
+			}
+			else {
+				delete((*bul));
+				bullets.remove(*bul);
+				break;
+			}
+		}
+
+
+
+
+
+
+		text.setString("«доровье:");
+		text.setPosition(400, 0);
+		window.draw(text);
+		window.draw(z.hpbar);
+		window.display();
+
+	}
+
 	return 0;
 }
 
